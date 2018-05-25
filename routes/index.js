@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Sequelize = require("sequelize");
+const {models} = require('../models/index');
 
 const quizController = require('../controllers/quiz');
 
@@ -13,6 +15,11 @@ router.get('/author', (req, res, next) => {
     res.render('author');
 });
 
+//Play page
+router.get('/quizzes/randomplay', quizController.playRandom);
+
+//RandomCheck page
+router.get('/quizzes/randomcheck/:quizId(\\d+)/', quizController.randomcheck);
 
 // Autoload for routes using :quizId
 router.param('quizId', quizController.load);
